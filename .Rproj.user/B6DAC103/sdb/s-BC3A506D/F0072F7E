@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# Windows image file caches\nThumbs.db\nehthumbs.db\n\n# Folder config file\nDesktop.ini\n\n# Recycle Bin used on file shares\n$RECYCLE.BIN/\n\n# Windows Installer files\n*.cab\n*.msi\n*.msm\n*.msp\n\n# Windows shortcuts\n*.lnk\n\n# =========================\n# Operating System Files\n# =========================\n\n# OSX\n# =========================\n\n.DS_Store\n.AppleDouble\n.LSOverride\n\n# Thumbnails\n._*\n\n# Files that might appear in the root of a volume\n.DocumentRevisions-V100\n.fseventsd\n.Spotlight-V100\n.TemporaryItems\n.Trashes\n.VolumeIcon.icns\n\n# Directories potentially created on remote AFP share\n.AppleDB\n.AppleDesktop\nNetwork Trash Folder\nTemporary Items\n.apdisk\n\n# R related files that don't need version control\n.Rproj.user\nStatDataDemo3.Rproj\n.Rhistory\n",
+    "created" : 1486356432523.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "381525935",
+    "id" : "F0072F7E",
+    "lastKnownWriteTime" : 1486356451,
+    "last_content_update" : 1486356451354,
+    "path" : "C:/Users/Zhaohu/.gitignore",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "gitignore"
+}
