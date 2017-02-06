@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Activity: Stocks & Dividends\"\nauthor: \"Zhaohu(Jonathan) Fan\"\n\noutput:\n  html_document:\n    fig_height: 7\n    fig_width: 9\n    keep_md: yes\n    toc: yes\n    toc_float: yes\n---\n\n```{r include=FALSE}\nlibrary(DataComputing)\n```\n\n```{r setup, include=FALSE}\nlibrary(knitr)\nknitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)\n\n```\n### Getting Price Data\n\n```{r}\n# choose companies of interest\ncompanies <- c(\"F\", \"MMM\", \"GE\")\n\nPrices <- read_stock_prices(companies, what = \"daily\", start_year = 2000, end_year = 2016)\n\n# inspect data\nhead(Prices)\n\n# chart close vs date for each company\nPrices %>%\n  ggplot(aes(x = date, y = close)) + \n  geom_line(aes(color = company))\n\n```\n\n\n### Buy/Sell Profit\n\n\n```{r}\n\nActions <- \n  data.frame(\n    action = c(\"buy\", \"sell\"), \n    date = ymd(c(\"2008-07-14\", \"2015-12-16\"))\n  )\n\n# Combine the Prices & Actions tables\nSalesDifference <- \n  Prices %>%\n  inner_join(Actions) %>%\n  select(company, action, close) %>%\n  spread(key = action, value = close) %>%\n  mutate(profit = sell - buy)\n\n# inspect the data table\nSalesDifference\n\n```\n\n\n### Indexing Prices\n\n```{r}\n# choose reference date\nref_date <- ymd(\"2008-07-14\")\n\n# establish reference value for indexing\nReference <- \n  Prices %>%\n  filter(date == ref_date) %>%\n  select(company, standard=close)  # renames close variable as \"standard\"\n\n# inspect the result\nReference\n\n# index against reference value\nIndexData <- \n  Prices %>%\n  left_join(Reference) %>%\n  transmute(company, date, index = close/standard)\n\n# inspect the result\nhead(IndexData)\n\n# graph the indexes\nIndexData %>%\n  ggplot(aes(x = date, y = index)) + \n  geom_line(aes(color = company))\n```\n\n\n### Dividends\n\n Note that some companies don't issue dividends, so it must be removed or replaced before continuing.\n\n```{r eval=FALSE}\n# read dividend data\nDividends <- read_stock_prices(companies, what = \"dividends\")\n\n# inspect the data\nhead(Dividends)\n\nDividendsEarned <- \n  Prices %>%\n  inner_join(Dividends) %>%\n  filter(ymd(date) <= ymd(\"2015-12-16\"), ymd(date) >= ymd(\"2008-07-14\")) %>%\n  select(company, dividends) %>%\n  group_by(company) %>%\n  summarise(totalDividends = sum(dividends))\n\n# inspect the result\nhead(DividendsEarned)\n\n```\n\n```{r eval=FALSE}\n# earnings comparison\nSalesDifference %>%\n  inner_join(DividendsEarned)\n```\n\n",
+    "created" : 1486356576026.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3414081653",
+    "id" : "F2EA3C46",
+    "lastKnownWriteTime" : 1486356629,
+    "last_content_update" : 1486356629219,
+    "path" : "~/GitHub/StatDataDemo3/StatDataDemo3/Index.Rmd",
+    "project_path" : "Index.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
